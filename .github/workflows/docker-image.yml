@@ -43,8 +43,8 @@ jobs:
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag docker-selenium3:latest
       - name: Tag Docker image
-        run: docker tag docker-selenium3:latest $DOCKER_USER/docker-selenium3:latest
+        run: docker tag docker-selenium3:latest workwithprashant/docker-selenium3:latest
 #       - name: Build and push Docker images
 #         run: docker push $DOCKER_USER/docker-selenium3:$(date +'%Y-%m-%d')
       - name: Build and push Docker images
-        run: docker push $DOCKER_USER/docker-selenium3:latest
+        run: docker push workwithprashant/docker-selenium3:latest
