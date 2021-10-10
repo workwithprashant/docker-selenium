@@ -22,9 +22,7 @@ ARG UBUNTU_DATE
 # Docker build debug logging, green colored
 RUN printf "\033[1;32mFROM ubuntu:${UBUNTU_FLAVOR}-${UBUNTU_DATE} \033[0m\n"
 
-# https://github.com/docker/docker/pull/25466#discussion-diff-74622923R677
-LABEL maintainer "Diego Molina <diemol@gmail.com>"
-LABEL maintainer "Leo Gallucci <elgalu3+dosel@gmail.com>"
+LABEL maintainer="Prashant Patil <workwithprashant@gmail.com>"
 
 # No interactive frontend during docker build
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -120,7 +118,7 @@ RUN apt -qqy update \
 # Full list at https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 #  e.g. "US/Pacific" for Los Angeles, California, USA
 # e.g. ENV TZ "US/Pacific"
-ENV TZ="Europe/Berlin"
+ENV TZ="US/Central"
 # Apply TimeZone
 RUN echo "Setting time zone to '${TZ}'" \
   && echo "${TZ}" > /etc/timezone \
@@ -429,7 +427,7 @@ ENV FF_LANG="en-US" \
     FF_PLATFORM="linux-x86_64" \
     FF_INNER_PATH="firefox/releases"
 
-ARG FF_VER="93"
+ARG FF_VER="93.0"
 
 ENV FF_COMP="firefox-${FF_VER}.tar.bz2"
 ENV FF_URL="${FF_BASE_URL}/${FF_INNER_PATH}/${FF_VER}/${FF_PLATFORM}/${FF_LANG}/${FF_COMP}"
