@@ -35,7 +35,7 @@ jobs:
           file: ${{ env.BASE_DIR }}/Dockerfile
           load: true
           tags: |
-            ${{ env.DOCKER_USER }}/${{ env.REPO }}:${{ env.VERSION }}
-            ${{ env.DOCKER_USER }}/${{ env.REPO }}:latest
+            workwithprashant/docker-selenium3:${{ env.VERSION }}
+            workwithprashant/docker-selenium3:latest
 #       - name: Build and push Docker images
 #         run: docker push workwithprashant/docker-selenium3:latest
