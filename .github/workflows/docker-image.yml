@@ -13,10 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set variables
-        run: |
-          VER=$(ls -R -ll)
-          echo "VERSION=$VER" >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - name: docker login
         env:
@@ -28,6 +24,10 @@ jobs:
 #       - name: Tag Docker image
 #         run: docker tag docker-selenium3:latest workwithprashant/docker-selenium3:latest
 
+      - name: Set variables
+        run: |
+          VER=$(cat VERSION)
+          echo "VERSION=$VER" >> $GITHUB_ENV
       - name: Build Docker Image
         uses: docker/build-push-action@v2
         with:
