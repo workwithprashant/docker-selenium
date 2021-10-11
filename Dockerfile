@@ -7,15 +7,6 @@
 ARG UBUNTU_FLAVOR=xenial
 ARG UBUNTU_DATE=20190904
 
-# Firefox Version
-ARG FF_VER="93.0"
-# Firefox Gecko Driver Version
-ARG GECKOD_VER="0.30.0"
-# Chrome Version
-ARG EXPECTED_CHROME_VERSION="94.0.4606.81"
-# Chrome Driver Version
-ARG CHROME_DRIVER_VERSION="94.0.4606.61"
-
 #== Ubuntu xenial is 16.04, i.e. FROM ubuntu:16.04
 # Find latest images at https://hub.docker.com/r/library/ubuntu/
 FROM ubuntu:${UBUNTU_FLAVOR}-${UBUNTU_DATE}
@@ -436,6 +427,9 @@ ENV FF_LANG="en-US" \
     FF_PLATFORM="linux-x86_64" \
     FF_INNER_PATH="firefox/releases"
 
+#META Firefox Version
+ARG FF_VER="93.0"
+
 ENV FF_COMP="firefox-${FF_VER}.tar.bz2"
 ENV FF_URL="${FF_BASE_URL}/${FF_INNER_PATH}/${FF_VER}/${FF_PLATFORM}/${FF_LANG}/${FF_COMP}"
 RUN cd /opt \
@@ -452,6 +446,8 @@ LABEL selenium_firefox_version "${FF_VER}"
 #============
 # GeckoDriver
 #============
+#META Firefox Gecko Driver Version
+ARG GECKOD_VER="0.30.0"
 ENV GECKOD_URL="https://github.com/mozilla/geckodriver/releases/download"
 RUN wget --no-verbose -O geckodriver.tar.gz \
      "${GECKOD_URL}/v${GECKOD_VER}/geckodriver-v${GECKOD_VER}-linux64.tar.gz" \
@@ -470,6 +466,8 @@ COPY bin/fail /usr/bin/
 #===============
 # TODO: Use Google fingerprint to verify downloads
 #  https://www.google.de/linuxrepositories/
+#META Chrome Version
+ARG EXPECTED_CHROME_VERSION="94.0.4606.81"
 ENV CHROME_URL="https://dl.google.com/linux/direct" \
     CHROME_BASE_DEB_PATH="/home/seluser/chrome-deb/google-chrome" \
     GREP_ONLY_NUMS_VER="[0-9.]{2,20}"
@@ -511,6 +509,8 @@ USER seluser
 # Chrome webdriver
 #==================
 # How to get cpu arch dynamically: $(lscpu | grep Architecture | sed "s/^.*_//")
+#META Chrome Driver Version
+ARG CHROME_DRIVER_VERSION="94.0.4606.61"
 ENV CHROME_DRIVER_BASE="chromedriver.storage.googleapis.com" \
     CPU_ARCH="64"
 ENV CHROME_DRIVER_FILE="chromedriver_linux${CPU_ARCH}.zip"
