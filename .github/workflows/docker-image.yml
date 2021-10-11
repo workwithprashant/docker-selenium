@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Set variables
         run: |
-          VER=$(cat ${{ env.BASE_DIR }}/VERSION)
+          VER=$(ls -ll; cat ${{ env.BASE_DIR }}/VERSION)
           echo "VERSION=$VER" >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - name: docker login
