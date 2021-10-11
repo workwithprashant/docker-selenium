@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main ]
 
@@ -32,11 +32,12 @@ jobs:
           tags: |
             workwithprashant/docker-selenium3:${{ env.VERSION }}
             workwithprashant/docker-selenium3:latest
-#       - name: Build the Docker image
-#         run: docker build . --file Dockerfile --tag docker-selenium3:latest
-#       - name: Tag Docker image
-#         run: docker tag docker-selenium3:latest workwithprashant/docker-selenium3:latest
+            workwithprashant/docker-selenium3:latest-rc
       - name: Push Docker images
-        run: docker push workwithprashant/docker-selenium3:${{ env.VERSION }}
-      - name: Push Docker images
-        run: docker push workwithprashant/docker-selenium3:latest
+        run: docker push workwithprashant/docker-selenium3:latest-rc
+      - name: Release image
+        # Release image on 'main'
+        if: github.ref == 'refs/heads/main'
+        run: |
+          docker push workwithprashant/docker-selenium3:latest
+          docker push workwithprashant/docker-selenium3:${{ env.VERSION }}
