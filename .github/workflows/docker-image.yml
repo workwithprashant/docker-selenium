@@ -36,5 +36,7 @@ jobs:
 #         run: docker build . --file Dockerfile --tag docker-selenium3:latest
 #       - name: Tag Docker image
 #         run: docker tag docker-selenium3:latest workwithprashant/docker-selenium3:latest
-#       - name: Build and push Docker images
-#         run: docker push workwithprashant/docker-selenium3:latest
+      - name: Push Docker images
+        run: docker push workwithprashant/docker-selenium3:${{ env.VERSION }}
+      - name: Push Docker images
+        run: docker push workwithprashant/docker-selenium3:latest
