@@ -428,7 +428,7 @@ ENV FF_LANG="en-US" \
     FF_INNER_PATH="firefox/releases"
 
 #META Firefox Version
-ARG FF_VER="93.0"
+ARG FF_VER="101.0"
 
 ENV FF_COMP="firefox-${FF_VER}.tar.bz2"
 ENV FF_URL="${FF_BASE_URL}/${FF_INNER_PATH}/${FF_VER}/${FF_PLATFORM}/${FF_LANG}/${FF_COMP}"
@@ -467,7 +467,7 @@ COPY bin/fail /usr/bin/
 # TODO: Use Google fingerprint to verify downloads
 #  https://www.google.de/linuxrepositories/
 #META Chrome Version
-ARG EXPECTED_CHROME_VERSION="95.0.4638.54"
+ARG EXPECTED_CHROME_VERSION="102.0.5005.61"
 ENV CHROME_URL="https://dl.google.com/linux/direct" \
     CHROME_BASE_DEB_PATH="/home/seluser/chrome-deb/google-chrome" \
     GREP_ONLY_NUMS_VER="[0-9.]{2,20}"
@@ -510,7 +510,7 @@ USER seluser
 #==================
 # How to get cpu arch dynamically: $(lscpu | grep Architecture | sed "s/^.*_//")
 #META Chrome Driver Version
-ARG CHROME_DRIVER_VERSION="95.0.4638.17"
+ARG CHROME_DRIVER_VERSION="102.0.5005.61"
 ENV CHROME_DRIVER_BASE="chromedriver.storage.googleapis.com" \
     CPU_ARCH="64"
 ENV CHROME_DRIVER_FILE="chromedriver_linux${CPU_ARCH}.zip"
