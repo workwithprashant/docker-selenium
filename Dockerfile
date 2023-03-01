@@ -4,12 +4,14 @@
 #
 # To overwrite the build args use:
 #  docker build ... --build-arg UBUNTU_DATE=20171006
-ARG UBUNTU_FLAVOR=xenial
+#ARG UBUNTU_FLAVOR=xenial
+ARG UBUNTU_FLAVOR=latest
 ARG UBUNTU_DATE=20190904
 
 #== Ubuntu xenial is 16.04, i.e. FROM ubuntu:16.04
 # Find latest images at https://hub.docker.com/r/library/ubuntu/
-FROM ubuntu:${UBUNTU_FLAVOR}-${UBUNTU_DATE}
+#FROM ubuntu:${UBUNTU_FLAVOR}-${UBUNTU_DATE}
+FROM ubuntu:${UBUNTU_FLAVOR}
 
 #== An ARG declared before a FROM is outside of a build stage,
 # so it can’t be used in any instruction after a FROM. To use
@@ -23,6 +25,7 @@ ARG UBUNTU_DATE
 RUN printf "\033[1;32mFROM ubuntu:${UBUNTU_FLAVOR}-${UBUNTU_DATE} \033[0m\n"
 
 LABEL maintainer="Prashant Patil <workwithprashant@gmail.com>"
+LABEL maintainer="Shreshtha Dahagama <shreshthads@gmail.com>"
 
 # No interactive frontend during docker build
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -397,6 +400,16 @@ RUN apt -qqy update \
 # -----------------------#
 # Please use https://github.com/zalando/zalenium
 
+
+## -----------------------#
+## libu2f-udev
+## -----------------------#
+#RUN apt update && apt install -y libdbus-1-3 libglib2.0-0 libnss3 libx11-6 libdbus-glib-1-2:amd64 \
+#    libasound2 libgbm1 libxss1 libpango1.0-0 xdg-utils fonts-liberation libatk-bridge2.0-0 libcups2 \
+#    ffmpeg libu2f-udev \
+#    && apt --fix-broken install -y
+
+
 #-----------------#
 # Mozilla
 #-----------------#
@@ -428,7 +441,7 @@ ENV FF_LANG="en-US" \
     FF_INNER_PATH="firefox/releases"
 
 #META Firefox Version
-ARG FF_VER="101.0"
+ARG FF_VER="110.0"
 
 ENV FF_COMP="firefox-${FF_VER}.tar.bz2"
 ENV FF_URL="${FF_BASE_URL}/${FF_INNER_PATH}/${FF_VER}/${FF_PLATFORM}/${FF_LANG}/${FF_COMP}"
@@ -447,7 +460,7 @@ LABEL selenium_firefox_version "${FF_VER}"
 # GeckoDriver
 #============
 #META Firefox Gecko Driver Version
-ARG GECKOD_VER="0.30.0"
+ARG GECKOD_VER="0.32.2"
 ENV GECKOD_URL="https://github.com/mozilla/geckodriver/releases/download"
 RUN wget --no-verbose -O geckodriver.tar.gz \
      "${GECKOD_URL}/v${GECKOD_VER}/geckodriver-v${GECKOD_VER}-linux64.tar.gz" \
@@ -467,7 +480,7 @@ COPY bin/fail /usr/bin/
 # TODO: Use Google fingerprint to verify downloads
 #  https://www.google.de/linuxrepositories/
 #META Chrome Version
-ARG EXPECTED_CHROME_VERSION="102.0.5005.61"
+ARG EXPECTED_CHROME_VERSION="110.0.5481.178"
 ENV CHROME_URL="https://dl.google.com/linux/direct" \
     CHROME_BASE_DEB_PATH="/home/seluser/chrome-deb/google-chrome" \
     GREP_ONLY_NUMS_VER="[0-9.]{2,20}"
@@ -510,7 +523,7 @@ USER seluser
 #==================
 # How to get cpu arch dynamically: $(lscpu | grep Architecture | sed "s/^.*_//")
 #META Chrome Driver Version
-ARG CHROME_DRIVER_VERSION="102.0.5005.61"
+ARG CHROME_DRIVER_VERSION="110.0.5481.77"
 ENV CHROME_DRIVER_BASE="chromedriver.storage.googleapis.com" \
     CPU_ARCH="64"
 ENV CHROME_DRIVER_FILE="chromedriver_linux${CPU_ARCH}.zip"
