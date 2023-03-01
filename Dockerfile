@@ -398,6 +398,16 @@ RUN apt -qqy update \
 # -----------------------#
 # Please use https://github.com/zalando/zalenium
 
+
+# -----------------------#
+# libu2f-udev
+# -----------------------#
+RUN apt update && apt install -y libdbus-1-3 libglib2.0-0 libnss3 libx11-6 libdbus-glib-1-2:amd64 \
+    libasound2 libgbm1 libxss1 libpango1.0-0 xdg-utils fonts-liberation libatk-bridge2.0-0 libcups2 \
+    ffmpeg libu2f-udev \
+    && apt --fix-broken install -y
+
+
 #-----------------#
 # Mozilla
 #-----------------#
