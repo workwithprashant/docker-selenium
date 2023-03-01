@@ -5,11 +5,12 @@
 # To overwrite the build args use:
 #  docker build ... --build-arg UBUNTU_DATE=20171006
 ARG UBUNTU_FLAVOR=xenial
-ARG UBUNTU_DATE=20190904
+#ARG UBUNTU_DATE=20190904
 
 #== Ubuntu xenial is 16.04, i.e. FROM ubuntu:16.04
 # Find latest images at https://hub.docker.com/r/library/ubuntu/
-FROM ubuntu:${UBUNTU_FLAVOR}-${UBUNTU_DATE}
+#FROM ubuntu:${UBUNTU_FLAVOR}-${UBUNTU_DATE}
+FROM ubuntu:${UBUNTU_FLAVOR}
 
 #== An ARG declared before a FROM is outside of a build stage,
 # so it can’t be used in any instruction after a FROM. To use
@@ -399,13 +400,13 @@ RUN apt -qqy update \
 # Please use https://github.com/zalando/zalenium
 
 
-# -----------------------#
-# libu2f-udev
-# -----------------------#
-RUN apt update && apt install -y libdbus-1-3 libglib2.0-0 libnss3 libx11-6 libdbus-glib-1-2:amd64 \
-    libasound2 libgbm1 libxss1 libpango1.0-0 xdg-utils fonts-liberation libatk-bridge2.0-0 libcups2 \
-    ffmpeg libu2f-udev \
-    && apt --fix-broken install -y
+## -----------------------#
+## libu2f-udev
+## -----------------------#
+#RUN apt update && apt install -y libdbus-1-3 libglib2.0-0 libnss3 libx11-6 libdbus-glib-1-2:amd64 \
+#    libasound2 libgbm1 libxss1 libpango1.0-0 xdg-utils fonts-liberation libatk-bridge2.0-0 libcups2 \
+#    ffmpeg libu2f-udev \
+#    && apt --fix-broken install -y
 
 
 #-----------------#
